@@ -8,6 +8,7 @@ import Notifications from "../pages/Notifications.jsx";
 import UserProfile from "../pages/UserProfile.jsx";
 import DoctorProfile from "../pages/DoctorProfile.jsx";
 import Appointments from "../pages/Appointments.jsx";
+import About from "../components/About.jsx";
 import { Routes, Route } from "react-router-dom";
 
 const Routers = () => {
@@ -15,6 +16,7 @@ const Routers = () => {
         <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/home' element={<Home />} />
+            <Route path='/about' element={<About />} />
             <Route path='/doctors' element={<Doctors />} />
             <Route path='/doctors/:id' element={<DoctorDetails />} />
             <Route path='/contact' element={<Contact />} />

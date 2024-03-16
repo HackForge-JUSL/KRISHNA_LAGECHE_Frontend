@@ -26,7 +26,7 @@ const quickLinks01 = [
     display: "Home",
   },
   {
-    path: "/",
+    path: "/about",
     display: "About Us",
   },
   {
