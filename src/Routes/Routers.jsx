@@ -4,6 +4,9 @@ import Signup from "../pages/Signup.jsx";
 import Contact from "../pages/Contact.jsx";
 import Doctors from "../pages/Doctors/Doctors.jsx";
 import DoctorDetails from "../pages/Doctors/DoctorDetails.jsx";
+import Notifications from "../pages/Notifications.jsx";
+import Profile from "../pages/Profile.jsx";
+import Appointments from "../pages/Appointments.jsx";
 import { Routes, Route } from "react-router-dom";
 
 const Routers = () => {
@@ -16,6 +19,9 @@ const Routers = () => {
             <Route path='/contact' element={<Contact />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Signup />} />
+            <Route path='/appointments' element={<Appointments />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/profile" element={<Profile />} />
         </Routes>
     )
 }
