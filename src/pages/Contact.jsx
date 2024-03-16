@@ -13,7 +13,7 @@ const Contact = () => {
             <label htmlFor="email" className='form_label'>
               Your Email
             </label>
-            <input type="email" id='email' placeholder='example@gamil.com' className='form_input mt-1'/>
+            <input type="email" id='email' placeholder='example@gmail.com' className='form_input mt-1'/>
           </div>
           <div>
             <label htmlFor="subject" className='form_label'>
