@@ -4,7 +4,7 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import { FaStar } from "react-icons/fa6";
 
 const DoctorCard = ({ doctor }) => {
-  const { name, specialization, totalRating, experiences } = doctor;
+  const { name, specialization, experiences } = doctor;
   const {} = doctor;
   return (
      <div className='p-3 lg:p-5'>
@@ -18,7 +18,7 @@ const DoctorCard = ({ doctor }) => {
         </span>
         <div className='flex items-center gap-2'>
           <span className='flex items-center gap-1 text-md lg:text-lg font-semibold text-headingColor'>
-            <FaStar className='text-lg md:text-xl text-yellow-400'/> ({ totalRating })
+            <FaStar className='text-lg md:text-xl text-yellow-400'/> (5)
           </span>
         </div>
       </div>
