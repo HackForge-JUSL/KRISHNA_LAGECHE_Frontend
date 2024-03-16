@@ -36,7 +36,7 @@ const Signup = () => {
       let url = `${apiUrl}/user/signup`; // Default API URL for patient role
       if (formData.role === 'doctor') {
         url = `${apiUrl}/doctor/signup`;
-      }
+      }     
   
       const response = await axios.post(url, formData);
   

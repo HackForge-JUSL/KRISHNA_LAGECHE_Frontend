@@ -5,7 +5,8 @@ import Contact from "../pages/Contact.jsx";
 import Doctors from "../pages/Doctors/Doctors.jsx";
 import DoctorDetails from "../pages/Doctors/DoctorDetails.jsx";
 import Notifications from "../pages/Notifications.jsx";
-import Profile from "../pages/Profile.jsx";
+import UserProfile from "../pages/UserProfile.jsx";
+import DoctorProfile from "../pages/DoctorProfile.jsx";
 import Appointments from "../pages/Appointments.jsx";
 import { Routes, Route } from "react-router-dom";
 
@@ -21,7 +22,8 @@ const Routers = () => {
             <Route path='/register' element={<Signup />} />
             <Route path='/appointments' element={<Appointments />} />
             <Route path="/notifications" element={<Notifications />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/user" element={<UserProfile />} />
+            <Route path="/doctor" element={<DoctorProfile />} />
         </Routes>
     )
 }
