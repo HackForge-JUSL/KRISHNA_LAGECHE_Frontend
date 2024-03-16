@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-const apiUrl = "http://localhost:8000/api";
+import { BASE_URL } from "../config.js";
+import { toast } from "react-toastify";
+import {HashLoader} from "react-spinners"
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    role: 'patient' // Default role set to patient
+    role: 'patient'
   });
   const [passwordError, setPasswordError] = useState('');
-
+  const { user, dispatch } = useContext(AuthContext);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -28,29 +30,39 @@ const Login = () => {
       setPasswordError('Password should be at least 8 characters long.');
       return;
     } else {
-      setPasswordError(''); 
+      setPasswordError('');
     }
 
     try {
-      let url = `${apiUrl}/user/login`; // Default API URL for patient role
+      let url = `${BASE_URL}/user/login`;
       if (formData.role === 'doctor') {
-        url = `${apiUrl}/doctor/login`;
+        url = `${BASE_URL}/doctor/login`;
       }
 
       const response = await axios.post(url, formData);
-
-      console.log('Login successful!', response.data);
-
-      // Redirect to dashboard or appropriate page after successful login
+      const { accessToken, data, msg } = response.data; 
+      const role = formData?.role;
+      console.log(accessToken);
+      console.log(data);
+      console.log(msg);
+      const user = data;
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: {
+          user,
+          token:accessToken,
+          role
+        },
+      });
+      toast.success(msg);
       if (formData.role === 'doctor') {
         navigate('/doctor');
       }
-      else
-      {
+      else {
         navigate('/user');
       }
     } catch (error) {
-      console.error('Error logging in:', error);
+      toast.error(error.msg);
     }
   };
 

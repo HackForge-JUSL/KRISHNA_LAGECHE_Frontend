@@ -1,21 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { RxCross1 } from "react-icons/rx";
+import { AuthContext } from '../context/AuthContext';
 
 const Header = () => {
   const [iconActive, setIconActive] = useState(false);
   const navigate = useNavigate();
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
-  const [user, setUser] = useState(
-    localStorage.getItem("token")
-      ? localStorage.getItem("token")
-      : ""
-  );
+  const { user, token , dispatch} = useContext(AuthContext);
 
   const logoutFunc = () => {
-    // dispatch(setUserInfo({}));
-    navigate("/login");
+    dispatch({ type: 'LOGOUT' });
+    navigate("/");
   };
 
   return (
@@ -31,7 +27,7 @@ const Header = () => {
           <li>
             <NavLink to={"/doctors"} activeClassName="active-link">Doctors</NavLink>
           </li>
-          {token && !user.isAdmin && (
+          {token && !user && (
             <>
               <li>
                 <NavLink to={"/appointments"} activeClassName="active-link">Appointments</NavLink>
@@ -47,7 +43,7 @@ const Header = () => {
               </li>
             </>
           )}
-          {!token ? (
+          {!token && !user ? (
             <>
               <li>
                 <NavLink
@@ -69,7 +65,7 @@ const Header = () => {
           ) : (
             <li>
               <span
-                className="btn"
+                className="btn cursor-pointer"
                 onClick={logoutFunc}
               >
                 Logout
