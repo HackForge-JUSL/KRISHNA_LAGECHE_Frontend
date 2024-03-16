@@ -1,10 +1,9 @@
 import './App.css'
+import Layout from './layout/Layout.jsx'
 
 function App() {
   return (
-    <h1 className="text-center my-10">
-      Welcome to out service
-    </h1>
+    <Layout />
   )
 }
 
