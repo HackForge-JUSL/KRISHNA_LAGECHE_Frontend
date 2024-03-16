@@ -27,7 +27,7 @@ const Header = () => {
           <li>
             <NavLink to={"/doctors"} activeClassName="active-link">Doctors</NavLink>
           </li>
-          {token && !user && (
+          {token && (
             <>
               <li>
                 <NavLink to={"/appointments"} activeClassName="active-link">Appointments</NavLink>
