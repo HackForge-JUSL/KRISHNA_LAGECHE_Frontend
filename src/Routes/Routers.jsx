@@ -10,6 +10,8 @@ import DoctorProfile from "../pages/DoctorProfile.jsx";
 import Appointments from "../pages/Appointments.jsx";
 import About from "../components/About.jsx";
 import { Routes, Route } from "react-router-dom";
+import LobbyScreen from "../screens/Lobby.jsx";
+import RoomPage from "../screens/Room.jsx";
 
 const Routers = () => {
     return (
@@ -26,6 +28,8 @@ const Routers = () => {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/user" element={<UserProfile />} />
             <Route path="/doctor" element={<DoctorProfile />} />
+            <Route path="/room" element={<LobbyScreen />} />
+            <Route path="/room/:roomId" element={<RoomPage />} />
         </Routes>
     )
 }
