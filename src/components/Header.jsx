@@ -22,7 +22,7 @@ const Header = () => {
     <header className="w-full flex justify-between items-center gap-8 px-4 py-2 sticky top-0 left-0 bg-light-blue z-20 shadow transition-all duration-200">
       <nav className={`w-full flex justify-between items-center ${iconActive ? 'flex-col' : 'flex-row'}`}>
         <h2 className="nav-logo">
-          <NavLink to={"/"}>HealthBooker</NavLink>
+          <NavLink to={"/"}>HealthCare</NavLink>
         </h2>
         <ul className={`nav-links flex ${iconActive ? 'fixed top-0 left-0 w-full h-full bg-light-blue flex-col justify-center items-center gap-12 transform transition-all duration-300' : 'gap-8'}`}>
           <li>
