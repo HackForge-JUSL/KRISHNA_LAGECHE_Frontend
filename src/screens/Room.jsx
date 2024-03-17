@@ -2,14 +2,14 @@ import React, { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
 import peer from "../service/peer";
 import { useSocket } from "../context/SocketProvider";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const RoomPage = () => {
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
@@ -111,13 +111,6 @@ const RoomPage = () => {
     handleNegoNeedFinal,
   ]);
 
-  // const handleGoBack = ()=>{
-  //   if (socket) {
-  //     socket.disconnect();
-  //   }
-  //   navigate('/');
-  // }
-
   const handleGoBack = async () => {
     // Disconnect socket connection before navigating back
     if (socket) {
@@ -152,43 +145,52 @@ const RoomPage = () => {
   
     navigate('/');
   };
-  
 
   return (
-    <div>
-      <h1>ConnectNow</h1>
-      <h2>{remoteSocketId ? "Connected" : "No one is ready"}</h2>
-      {myStream && <button  onClick={sendStreams}>Share Video</button>}
-      {remoteSocketId && <button  onClick={handleCallUser}>Make a call</button>}
-      <>
-        <div  style={{ display: 'flex' }}>
-          {myStream && (
-            <div style={{ flex: 1 }}>
-              <h1>My Stream</h1>
-              <ReactPlayer
-                playing
-                muted
-                url={myStream}
-                className="ReactPlayer"
-              />
-            </div>
-          )}
-          {remoteStream && (
-            <div style={{ flex: 1 }}>
-              <h1>Remote Stream</h1>
-              <ReactPlayer
-                playing
-                muted
-                url={remoteStream}
-                className="ReactPlayer"
-              />
-            </div>
-          )}
-        </div>
-      </>
-      <button onClick={handleGoBack}>
-        GO BACK
-      </button>
+    <div className="container mx-auto px-4 ">
+      <h2 className={remoteSocketId ? "mb-8 text-green-500 text-4xl text-center" : "mb-8 text-red-500 text-4xl text-center"}>
+        {remoteSocketId ? "Connected" : "No one is ready"}
+      </h2>
+      <div className="flex justify-center">
+      {myStream && (
+        <button className="bg-blue-500 mr-8 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={sendStreams}>
+          Share Video
+        </button>
+      )}
+      {remoteSocketId && (
+        <button className=" ml-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleCallUser}>
+          Make a Call
+        </button>
+      )}
+      </div>
+      <div className="flex mt-4">
+        {myStream && (
+          <div className="flex-1 border border-gray-300 rounded">
+            <h1 className="text-center text-xl font-bold mb-2">My Stream</h1>
+            <ReactPlayer
+              playing
+              url={myStream}
+              className="ReactPlayer"
+            />
+          </div>
+        )}
+        {remoteStream && (
+          <div className="flex-1 border border-gray-300 rounded">
+            <h1 className="text-center text-xl font-bold mb-2">Remote Stream</h1>
+            <ReactPlayer
+              playing
+              url={remoteStream}
+              className="ReactPlayer"
+            />
+          </div>
+        )}
+      </div>
+      <div className="flex justify-center">
+  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={handleGoBack}>
+    GO BACK
+  </button>
+</div>
+
     </div>
   );
 };
