@@ -6,7 +6,7 @@ import Error from "./Error.jsx";
 
 const DoctorList = () => {
   const { data:doctors, loading, error } = useFetchData(`${BASE_URL}/doctor/all`);
-  console.log(doctors);
+  console.log(doctors)
   return (
     <>
       {loading && <Loader />}
