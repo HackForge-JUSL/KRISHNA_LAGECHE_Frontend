@@ -12,6 +12,7 @@ import About from "../components/About.jsx";
 import { Routes, Route } from "react-router-dom";
 import LobbyScreen from "../screens/Lobby.jsx";
 import RoomPage from "../screens/Room.jsx";
+import Nutrients from "../components/Nutrients.jsx";
 
 const Routers = () => {
     return (
@@ -28,6 +29,7 @@ const Routers = () => {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/user/profile" element={<UserProfile />} />
             <Route path="/doctor" element={<DoctorProfile />} />
+            <Route path="/nutrients" element={<Nutrients />} />
             <Route path="/room" element={<LobbyScreen />} />
             <Route path="/room/:roomId" element={<RoomPage />} />
         </Routes>

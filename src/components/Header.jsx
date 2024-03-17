@@ -27,6 +27,9 @@ const Header = () => {
           <li>
             <NavLink to={"/doctors"} activeClassName="active-link">Doctors</NavLink>
           </li>
+          <li>
+            <NavLink to={"/nutrients"} activeClassName="active-link">Nutrients Tracker</NavLink>
+          </li>
           {token && (
             <>
               <li>
