@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
+import {useNavigate} from "react-router-dom";
 
 import Error from "../components/Error.jsx";
 import useFetchData from "../Hooks/useFetchData.jsx";
@@ -9,6 +10,7 @@ import { BASE_URL } from "../config.js";
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const { user } = useContext(AuthContext);
+  const navigate= useNavigate();
   const { data, loading, error } = useFetchData(
     `${BASE_URL}/appointment/all`
   );
@@ -18,6 +20,10 @@ const Appointments = () => {
       setAppointments(data.data);
     }
   }, [data]);
+
+  const handleConnect = ()=>{
+    navigate("/room");
+  }
 
   return (
     <>
@@ -52,6 +58,20 @@ const Appointments = () => {
                       <td className="py-2 px-4">{appointment.date}</td>
                       <td className="py-2 px-4">{appointment.time}</td>
                       <td className="py-2 px-4">{appointment.status}</td>
+                      {
+                        appointment.status==="pending"?
+                        <div>
+                          <button
+                            onClick={handleConnect}
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                          >
+                            Connect
+                          </button>
+                        </div>
+
+                        :
+                        <div></div>
+                      }
                       {user._id === appointment.doctorId?._id && (
                         <td className="py-2 px-4">
                           {/* Action buttons */}
