@@ -4,20 +4,21 @@ import { AuthContext } from "../context/AuthContext.jsx";
 import Error from "../components/Error.jsx";
 import useFetchData from "../Hooks/useFetchData.jsx"
 import Loading from "../components/Loading";
+import { BASE_URL } from "../config.js";
 //TODO: on click Appointment a particular appointment will be shown
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const { user } = useContext(AuthContext);
   const { data, loading, error } = useFetchData(
-    `/appointment/all`
+    `${BASE_URL}/appointment/all`
   );
 
   useEffect(() => {
     if (data) {
-      setAppointments(data);
+      setAppointments(data.data);
     }
   }, [data]);
-  console.log(appointments);
+  console.log(data.data);
   return (
     <>
       {loading && <Loading />}
@@ -26,7 +27,7 @@ const Appointments = () => {
         <section className="container notif-section">
           <h2 className="page-heading">Your Appointments</h2>
 
-          {appointments.length > 0 ? (
+          {appointments?.length > 0 ? (
             <div className="appointments">
               <table>
                 <thead>
@@ -36,8 +37,6 @@ const Appointments = () => {
                     <th>Patient</th>
                     <th>Appointment Date</th>
                     <th>Appointment Time</th>
-                    <th>Booking Date</th>
-                    <th>Booking Time</th>
                     <th>Status</th>
                     {user._id === appointments[0].doctorId?._id ? (
                       <th>Action</th>
@@ -48,34 +47,19 @@ const Appointments = () => {
                 </thead>
                 <tbody>
                   {appointments?.map((ele, i) => {
+                    console.log(ele);
                     return (
                       <tr key={ele?._id}>
                         <td>{i + 1}</td>
                         <td>
-                          {ele?.doctorId?.name}
+                          {ele?.doctor?.name}
                         </td>
                         <td>
-                          {ele?.userId?.name}
+                          {ele?.user?.name}
                         </td>
                         <td>{ele?.date}</td>
                         <td>{ele?.time}</td>
-                        <td>{ele?.createdAt.split("T")[0]}</td>
-                        <td>{ele?.updatedAt.split("T")[1].split(".")[0]}</td>
-                        <td>{ele?.status}</td>
-                        {userId === ele?.doctorId?._id ? (
-                          <td>
-                            <button
-                              className={`btn user-btn accept-btn ${ele?.status === "Completed" ? "disable-btn" : ""
-                                }`}
-                              disabled={ele?.status === "Completed"}
-                              onClick={() => complete(ele)}
-                            >
-                              Complete
-                            </button>
-                          </td>
-                        ) : (
-                          <div>No appointments available</div>
-                        )}
+                          <div>{ele?.status}</div>
                       </tr>
                     );
                   })}
