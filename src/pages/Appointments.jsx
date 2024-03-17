@@ -44,6 +44,7 @@ const Appointments = () => {
                     <th className="py-2 px-4">Appointment Date</th>
                     <th className="py-2 px-4">Appointment Time</th>
                     <th className="py-2 px-4">Status</th>
+                    <th className="py-2 px-4">Connect/Prescription</th>
                     {user._id === appointments[0]?.doctorId?._id && (
                       <th className="py-2 px-4">Action</th>
                     )}
@@ -58,25 +59,21 @@ const Appointments = () => {
                       <td className="py-2 px-4">{appointment.date}</td>
                       <td className="py-2 px-4">{appointment.time}</td>
                       <td className="py-2 px-4">{appointment.status}</td>
+                      <td className="py-2 px-4">
                       {
                         appointment.status==="pending"?
                         <div>
                           <button
                             onClick={handleConnect}
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-8"
                           >
                             Connect
                           </button>
                         </div>
-
                         :
-                        <div></div>
+                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-8">Download</button>
                       }
-                      {user._id === appointment.doctorId?._id && (
-                        <td className="py-2 px-4">
-                          {/* Action buttons */}
-                        </td>
-                      )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
