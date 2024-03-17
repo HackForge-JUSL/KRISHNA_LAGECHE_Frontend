@@ -2,12 +2,14 @@ import React, { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
 import peer from "../service/peer";
 import { useSocket } from "../context/SocketProvider";
+import { useNavigate} from "react-router-dom";
 
 const RoomPage = () => {
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
+  const navigate=useNavigate();
 
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
@@ -109,6 +111,49 @@ const RoomPage = () => {
     handleNegoNeedFinal,
   ]);
 
+  // const handleGoBack = ()=>{
+  //   if (socket) {
+  //     socket.disconnect();
+  //   }
+  //   navigate('/');
+  // }
+
+  const handleGoBack = async () => {
+    // Disconnect socket connection before navigating back
+    if (socket) {
+      socket.disconnect();
+    }
+  
+    // Stop tracks and release resources
+    if (myStream) {
+      const tracks = myStream.getTracks();
+      tracks.forEach(track => track.stop());
+    }
+  
+    // Revoke camera and audio permissions
+    try {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+          video: true
+        });
+  
+        mediaStream.getTracks().forEach(track => {
+          track.stop();
+          track.enabled = false;
+          track.readyState = "ended";
+        });
+  
+        mediaStream.getTracks().forEach(track => track.stop());
+      }
+    } catch (error) {
+      console.error('Error revoking permissions:', error);
+    }
+  
+    navigate('/');
+  };
+  
+
   return (
     <div>
       <h1>ConnectNow</h1>
@@ -141,7 +186,9 @@ const RoomPage = () => {
           )}
         </div>
       </>
-
+      <button onClick={handleGoBack}>
+        GO BACK
+      </button>
     </div>
   );
 };
