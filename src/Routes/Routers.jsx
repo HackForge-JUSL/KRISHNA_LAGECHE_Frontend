@@ -13,7 +13,7 @@ import { Routes, Route } from "react-router-dom";
 import LobbyScreen from "../screens/Lobby.jsx";
 import RoomPage from "../screens/Room.jsx";
 import Nutrients from "../components/Nutrients.jsx";
-import CheckoutSuccess from '../pages/CheckoutSuccess.jsx';
+import CheckoutSuccess from "../pages/CheckoutSuccess.jsx";
 const Routers = () => {
     return (
         <Routes>
