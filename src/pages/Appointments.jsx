@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
 
 import Error from "../components/Error.jsx";
-import useFetchData from "../Hooks/useFetchData.jsx"
+import useFetchData from "../Hooks/useFetchData.jsx";
 import Loading from "../components/Loading";
 import { BASE_URL } from "../config.js";
-//TODO: on click Appointment a particular appointment will be shown
+
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const { user } = useContext(AuthContext);
@@ -18,61 +18,57 @@ const Appointments = () => {
       setAppointments(data.data);
     }
   }, [data]);
-  console.log(data.data);
+
   return (
     <>
       {loading && <Loading />}
       {error && <Error />}
-      {(!error && !loading && (
+      {!error && !loading && (
         <section className="container notif-section">
-          <h2 className="page-heading">Your Appointments</h2>
+          <h2 className="text-2xl font-bold mb-4">Your Appointments</h2>
 
           {appointments?.length > 0 ? (
             <div className="appointments">
-              <table>
+              <table className="min-w-full">
                 <thead>
-                  <tr>
-                    <th>S.No</th>
-                    <th>Doctor</th>
-                    <th>Patient</th>
-                    <th>Appointment Date</th>
-                    <th>Appointment Time</th>
-                    <th>Status</th>
-                    {user._id === appointments[0].doctorId?._id ? (
-                      <th>Action</th>
-                    ) : (
-                      <></>
+                  <tr className="bg-gray-200">
+                    <th className="py-2 px-4">S.No</th>
+                    <th className="py-2 px-4">Doctor</th>
+                    <th className="py-2 px-4">Patient</th>
+                    <th className="py-2 px-4">Appointment Date</th>
+                    <th className="py-2 px-4">Appointment Time</th>
+                    <th className="py-2 px-4">Status</th>
+                    {user._id === appointments[0]?.doctorId?._id && (
+                      <th className="py-2 px-4">Action</th>
                     )}
                   </tr>
                 </thead>
                 <tbody>
-                  {appointments?.map((ele, i) => {
-                    console.log(ele);
-                    return (
-                      <tr key={ele?._id}>
-                        <td>{i + 1}</td>
-                        <td>
-                          {ele?.doctor?.name}
+                  {appointments?.map((appointment, index) => (
+                    <tr key={appointment._id} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
+                      <td className="py-2 px-4">{index + 1}</td>
+                      <td className="py-2 px-4">{appointment.doctor.name}</td>
+                      <td className="py-2 px-4">{appointment.user.name}</td>
+                      <td className="py-2 px-4">{appointment.date}</td>
+                      <td className="py-2 px-4">{appointment.time}</td>
+                      <td className="py-2 px-4">{appointment.status}</td>
+                      {user._id === appointment.doctorId?._id && (
+                        <td className="py-2 px-4">
+                          {/* Action buttons */}
                         </td>
-                        <td>
-                          {ele?.user?.name}
-                        </td>
-                        <td>{ele?.date}</td>
-                        <td>{ele?.time}</td>
-                          <div>{ele?.status}</div>
-                      </tr>
-                    );
-                  })}
+                      )}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
           ) : (
-            <div></div>
+            <div>No appointments found.</div>
           )}
         </section>
-      )
       )}
     </>
   );
 };
+
 export default Appointments;
