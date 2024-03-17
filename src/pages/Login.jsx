@@ -59,7 +59,7 @@ const Login = () => {
         navigate('/doctor');
       }
       else {
-        navigate('/user');
+        navigate('/');
       }
     } catch (error) {
       toast.error(error.msg);

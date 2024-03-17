@@ -39,7 +39,7 @@ const Header = () => {
                 <NavLink to={"/contact"} activeClassName="active-link">Contact Us</NavLink>
               </li>
               <li>
-                <NavLink to={"/profile"} activeClassName="active-link">Profile</NavLink>
+                <NavLink to={"/user/profile"} activeClassName="active-link">Profile</NavLink>
               </li>
             </>
           )}
