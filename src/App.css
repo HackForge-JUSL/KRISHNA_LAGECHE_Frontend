@@ -44,7 +44,7 @@ nav {
 .menu-open,
 .menu-close {
     position: absolute;
-    color: var(--black);
+    color: black;
     cursor: pointer;
 }
 
